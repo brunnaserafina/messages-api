@@ -10,6 +10,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/tweets")
@@ -27,5 +29,10 @@ public class TweetController {
     @GetMapping
     public Page<Tweet> getTweets(@PageableDefault(page = 0, size = 5) Pageable page){
         return service.findAll(page);
+    }
+
+    @GetMapping("/{username}")
+    public List<Tweet> getTweetsUser(@PathVariable String username){
+        return service.getTweetsByUsername(username);
     }
 }

@@ -15,5 +15,4 @@ public class UserService {
     public void save(UserDTO dto) {
         repository.save(new User(dto));
     }
-
 }
