@@ -1,22 +1,23 @@
 package com.messages.api.controller;
 
-import com.messages.api.dto.UserDTO;
-import com.messages.api.service.UserService;
+import com.messages.api.dto.TweetDTO;
+import com.messages.api.service.TweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/auth/sign-up")
-public class UserController {
+@RequestMapping("/api/tweets")
+public class TweetController {
 
     @Autowired
-    private UserService service;
+    private TweetService service;
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public void createUser(@RequestBody UserDTO req) {
+    public void createTweet(@RequestBody TweetDTO req){
         service.save(req);
     }
+
 }

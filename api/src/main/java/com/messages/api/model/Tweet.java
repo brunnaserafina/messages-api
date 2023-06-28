@@ -1,6 +1,6 @@
 package com.messages.api.model;
 
-import com.messages.api.dto.UserDTO;
+import com.messages.api.dto.TweetDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "Users")
-public class User {
-    public User(UserDTO req){
+public class Tweet {
+    public Tweet(TweetDTO req){
         this.username = req.username();
-        this.avatar = req.avatar();
+        this.tweet = req.tweet();
     }
 
     @Id
@@ -23,5 +22,5 @@ public class User {
     private String username;
 
     @Column
-    private String avatar;
+    private String tweet;
 }
