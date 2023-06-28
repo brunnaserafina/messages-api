@@ -5,7 +5,9 @@ import com.messages.api.model.Tweet;
 import com.messages.api.repository.TweetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +22,9 @@ public class TweetService {
     }
 
     public Page<Tweet> findAll(Pageable pageable) {
-        return repository.findAll(pageable);
+        Sort sort = pageable.getSort().and(Sort.by(Sort.Direction.DESC, "id"));
+        PageRequest pageableWithSort = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+        return repository.findAll(pageableWithSort);
     }
 
     public List<Tweet> getTweetsByUsername(String username) {
