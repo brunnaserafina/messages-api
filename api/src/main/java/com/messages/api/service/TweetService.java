@@ -1,6 +1,7 @@
 package com.messages.api.service;
 
 import com.messages.api.dto.TweetDTO;
+import com.messages.api.error.UsernameNoExistsException;
 import com.messages.api.model.Tweet;
 import com.messages.api.model.User;
 import com.messages.api.repository.TweetRepository;
@@ -23,6 +24,10 @@ public class TweetService {
     private UserRepository userRepository;
 
     public void save(TweetDTO dto) {
+        if (!userRepository.existsByUsername(dto.username())) {
+            throw new UsernameNoExistsException("O username não existe!");
+        }
+
         User user = userRepository.findByUsername(dto.username());
         repository.save(new Tweet(dto, user.getAvatar()));
     }
@@ -34,6 +39,10 @@ public class TweetService {
     }
 
     public List<Tweet> getTweetsByUsername(String username) {
+        if (!userRepository.existsByUsername(username)) {
+            throw new UsernameNoExistsException("O username não existe!");
+        }
+
         return repository.findByUsername(username);
     }
 }
