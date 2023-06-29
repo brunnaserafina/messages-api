@@ -2,7 +2,9 @@ package com.messages.api.service;
 
 import com.messages.api.dto.TweetDTO;
 import com.messages.api.model.Tweet;
+import com.messages.api.model.User;
 import com.messages.api.repository.TweetRepository;
+import com.messages.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,8 +19,12 @@ public class TweetService {
     @Autowired
     private TweetRepository repository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public void save(TweetDTO dto) {
-        repository.save(new Tweet(dto));
+        User user = userRepository.findByUsername(dto.username());
+        repository.save(new Tweet(dto, user.getAvatar()));
     }
 
     public Page<Tweet> findAll(Pageable pageable) {

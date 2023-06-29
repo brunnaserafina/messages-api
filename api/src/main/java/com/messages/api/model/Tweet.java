@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 public class Tweet {
-    public Tweet(TweetDTO req){
-        this.username = req.username();
-        this.tweet = req.tweet();
+    public Tweet(TweetDTO dto, String avatar) {
+        this.avatar = avatar;
+        this.username = dto.username();
+        this.tweet = dto.tweet();
     }
 
     @Id
@@ -22,5 +23,9 @@ public class Tweet {
     private String username;
 
     @Column
+    private String avatar;
+
+    @Column
     private String tweet;
+
 }
